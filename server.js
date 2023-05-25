@@ -12,7 +12,7 @@ server.on('connection', (socket) => {
   socket.on('data', (data) => {
     const buffer = Buffer.from(data);
     const text   = buffer.toString();
-    console.log('data', text);
+    socket.write(text);
   })
 
   socket.on('close', () => {
