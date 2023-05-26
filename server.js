@@ -1,4 +1,5 @@
 const net = require('net');
+const { handleCommand } = require('./utils');
 
 const PORT = process.env.PORT || 7379;
 const IP   = process.env.ADDRESS || 'localhost';
@@ -10,7 +11,8 @@ server.on('connection', (socket) => {
   socket.on('data', (data) => {
     const buffer = Buffer.from(data);
     const command   = buffer.toString();
-    socket.write('+PONG\r\n');
+    const response  = handleCommand(command);
+    socket.write(response);
   })
 })
 
