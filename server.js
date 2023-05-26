@@ -1,22 +1,16 @@
 const net = require('net');
 
 const PORT = process.env.PORT || 7379;
-const IP   = process.env.ADDRESS || '0.0.0.0';
-
+const IP   = process.env.ADDRESS || 'localhost';
+const ENV  = process.env.NODE_ENV;
 
 const server = net.createServer();
 
 server.on('connection', (socket) => {
-  console.log('client connected');
-
   socket.on('data', (data) => {
     const buffer = Buffer.from(data);
-    const text   = buffer.toString();
-    socket.write(text);
-  })
-
-  socket.on('close', () => {
-    console.log('client disconnected');
+    const command   = buffer.toString();
+    socket.write('+PONG\r\n');
   })
 })
 
@@ -24,10 +18,10 @@ server.on('error', (err) => {
   throw err;
 })
 
-server.on('close', () => {
-  console.log('server is closing');
-})
+if (ENV !== 'test') {
+  server.listen(PORT, IP, () => {
+    console.log('buddies started on ', server.address());
+  })
+}
 
-server.listen(PORT, IP, () => {
-  console.log('buddies started on ', server.address());
-})
+module.exports = server;

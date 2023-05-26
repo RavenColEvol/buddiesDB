@@ -1,0 +1,17 @@
+{
+  "name": "buddiesdb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "protocol.js",
+  "scripts": {
+    "test": "NODE_ENV=test jest",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.1",
+    "jest": "^29.5.0"
+  }
+}
